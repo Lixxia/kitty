@@ -240,7 +240,7 @@ class TabBar:
             self.active_fg = (spec['active_tab_foreground'] << 8) | 2
         if 'active_tab_background' in spec:
             self.active_bg = (spec['active_tab_background'] << 8) | 2
-            self.draw_data = self.draw_data._replace(active_bg=color_from_int(spec['active_tab_background']))
+            # self.draw_data = self.draw_data._replace(active_bg=color_from_int(spec['active_tab_background']))
         if 'inactive_tab_background' in spec:
             self.draw_data = self.draw_data._replace(inactive_bg=color_from_int(spec['inactive_tab_background']))
         if 'tab_bar_background' in spec:
@@ -268,7 +268,7 @@ class TabBar:
         self.laid_out_once = True
         margin = (viewport_width - ncells * cell_width) // 2 + self.margin_width
         self.window_geometry = g = WindowGeometry(
-            margin, tab_bar.top, viewport_width - margin, tab_bar.bottom, s.columns, s.lines)
+            margin, tab_bar.top + margin, viewport_width - margin, tab_bar.bottom + margin, s.columns, s.lines)
         if margin > 0:
             self.blank_rects = (Rect(0, g.top, g.left, g.bottom + 1), Rect(g.right - 1, g.top, viewport_width, g.bottom + 1))
         else:
@@ -287,7 +287,7 @@ class TabBar:
         last_tab = data[-1] if data else None
 
         for i, t in enumerate(data):
-            s.cursor.bg = self.active_bg if t.is_active else 0
+            # s.cursor.bg = self.active_bg if t.is_active else 0
             s.cursor.fg = self.active_fg if t.is_active else 0
             s.cursor.bold, s.cursor.italic = self.active_font_style if t.is_active else self.inactive_font_style
             before = s.cursor.x
